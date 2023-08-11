@@ -10,6 +10,10 @@ function replaceText(word, replacement, text) {
   // Створення регулярного виразу для пошуку слова з флагом 'g' (глобальний пошук).
   // Використання методу `replace` регулярного виразу для заміни слова на фразу у тексті.
   // Повернення заміненого тексту.
+  let regExp = new RegExp(word, 'g');
+  let replaceReg = text.replace(regExp, replacement);
+
+  return replaceReg;
 }
 
 // Перевірка
@@ -35,6 +39,10 @@ function checkWord(word, text) {
   // Створення регулярного виразу для пошуку слова з флагом 'i' (регістронезалежний пошук).
   // Використання методу `test` регулярного виразу для перевірки наявності слова у тексті.
   // Повернення результату перевірки.
+  let regWord = new RegExp(word, "i");
+  let checkWord = regWord.test(text);
+
+  return checkWord;
 }
 
 // Перевірка
@@ -54,6 +62,16 @@ function extractTextInParentheses(str) {
   // Використання методу `matchAll` для отримання всіх збігів регулярного виразу.
   // Створення масиву зі знайденими текстами.
   // Повернення масиву вилучених текстів.
+  let regExp = /\((.*?)\)/g;
+  let check = str.matchAll(regExp);
+
+  let newArray = [];
+
+  for (let match of check) {
+    newArray.push(match[1]);
+  }
+
+  return newArray;
 }
 
 // Перевірка
@@ -74,6 +92,10 @@ function countEmails(str) {
   // Використання методу `match` для отримання всіх збігів регулярного виразу.
   // Підрахунок кількості email-адрес.
   // Повернення кількості email-адрес.
+  let regExp = /\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}\b/g;
+  let check = str.match(regExp);
+
+  return check ? check.length : 0;
 }
 
 // Перевірка
@@ -99,6 +121,16 @@ function findWordOccurrences(str, word) {
   // Додавання індексу поточного входження слова у масив.
   // Оновлення lastIndex,присвоєюмо йому значення  match.index + 1, щоб продовжити пошук з наступного символу
   // Повертаємо масив
+
+  let regularFr = new RegExp(word, 'gi');
+  let matches = [];
+  let match;
+
+  while ((match = regularFr.exec(str)) !== null) {
+    matches.push(match.index);
+  }
+
+  return matches;
 }
 
 // Перевірка
@@ -125,6 +157,12 @@ function checkRegexFlags(regex) {
   // Отримуємо всі флаги регулярного виразу.
   // Перевіряємо наявність флагів 'g' та 'm' за допомогою методу `includes`.
   // Повертаємо  - true, якщо флаги 'g' та 'm' присутні, інакше - false
+
+
+  let flags = regex.flags;
+
+  return flags.includes("g") && flags.includes("m");
+
 }
 
 // Перевірка
@@ -148,6 +186,11 @@ function replaceWordOccurrences(str, word, newWord) {
   // Створюємо регулярний вираз зі словом, використовуючи флаг 'g' для глобального пошуку всіх входжень.
   // Заміняємо всі входження слова у рядку на нове слово.
   // Повертаємо результат
+
+  let regularFr = new RegExp(word, "g");
+  let myReplace = str.replaceAll(regularFr, newWord);
+
+  return myReplace;
 }
 
 // Перевірка
@@ -177,6 +220,15 @@ function checkFlags(regex) {
   // Отримуємо вихідний код регулярного виразу за допомогою властивості `source`.
   // Додаємо вихідний код до масиву
   // Повертаємо масив використаних флагів.
+  let usedFlags = [];
+  let checkFlag = regex.flags;
+  if (checkFlag.includes("i")) {
+    usedFlags.push("ignoreCase");
+  }
+  let code = regex.source;
+  usedFlags.push(code);
+
+  return usedFlags;
 }
 
 // Приклад використання:
@@ -199,6 +251,17 @@ function checkRegexMethods(regex) {
   // Перевіряємо, чи використовується метод `multiline`.
   // Перевіряємо, чи використовується метод `sticky`.
   // Повертаємо масив використаних методів.
+  let usedMethods = [];
+   if (regex.dotAll) {
+    usedMethods.push("dotAll");
+   }
+   if (regex.multiline) {
+    usedMethods.push("multiline");
+   }
+   if (regex.sticky) {
+    usedMethods.push("sticky");
+   }
+   return usedMethods;
 }
 
 // Приклад використання:
@@ -219,6 +282,10 @@ console.log(checkRegexMethods(/test/msy));
 function findWord(str, word) {
   // Створення регулярного виразу для пошуку слова.
   // Використання методу `search` для пошуку першого входження слова.
+  let regularFr = new RegExp(word);
+  let check = str.search(regularFr);
+
+  return check;
 }
 
 // Приклад використання:
